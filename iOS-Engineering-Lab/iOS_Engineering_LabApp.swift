@@ -12,6 +12,25 @@ struct iOS_Engineering_LabApp: App {
     var body: some Scene {
         WindowGroup {
             StepsViewController()
+                .onAppear {
+                    linkedList()
+                }
         }
+        
+    }
+    
+    func linkedList() {
+        let list = LinkedList<Int>()
+        list.append(10)
+        list.append(20)
+        list.append(30)
+        //list.printList()
+
+        list.insertAtBegining(value: 100)
+        list.insertAtEnd(value: 200)
+        list.insert(index: 4, value: 300)
+
+        list.printList()
+
     }
 }
