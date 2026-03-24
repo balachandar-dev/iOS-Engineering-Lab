@@ -11,4 +11,10 @@ struct LoginState {
     var isLoading: Bool = false
     var errorMessage: String?
     var isLoggedIn: Bool = false
+    var isEmailValid: Bool = false
+    var isPasswordValid: Bool = false
+    
+    var isFormValid : Bool {
+        isEmailValid && isPasswordValid
+    }
 }

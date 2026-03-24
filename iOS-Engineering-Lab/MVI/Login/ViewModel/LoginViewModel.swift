@@ -14,13 +14,9 @@ final class LoginViewModel: ObservableObject {
     var onStateChanged: ((LoginState) -> Void)?
     
     func send(intent: LoginIntent) {
-        switch intent {
-        case .loginTapped:
+        state = LoginReducer.reduce(state: state, intent: intent)
+        if case .loginTapped = intent {
             login()
-        case .emailChanegd(let emailString):
-            state.email = emailString
-        case .passwordChanged(let passwordString):
-            state.password = passwordString
         }
     }
     
@@ -30,7 +26,6 @@ final class LoginViewModel: ObservableObject {
             try await Task.sleep(nanoseconds: 1_000_000_000)
             DispatchQueue.main.async {
                 self.state.isLoading = false
-                
                 if self.state.email == "user@apple.com" && self.state.password == "pwd" {
                     self.state.isLoggedIn = true
                 } else {
