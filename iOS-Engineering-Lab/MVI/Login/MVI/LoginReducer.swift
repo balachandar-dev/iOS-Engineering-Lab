@@ -14,6 +14,20 @@ struct LoginReducer {
         case .passwordChanged(let password):
             newState.password = password
         case .loginTapped:
+            let isEmailValid = LoginValidators.isEmailValid(emailString: state.email)
+            let isPasswordValid = LoginValidators.isPasswordValid(password: state.password)
+            if !isEmailValid {
+                newState.errorMessage = "Invalid Email"
+                newState.isEmailValid = false
+            } else if !isPasswordValid {
+                newState.errorMessage = "Invalid Password"
+                newState.isEmailValid = false
+            } else {
+                newState.errorMessage = nil
+                newState.isEmailValid = true
+                newState.isPasswordValid = true
+            }
+            newState.isLoading = false
         }
         return newState
     }

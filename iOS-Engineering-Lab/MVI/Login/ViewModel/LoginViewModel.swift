@@ -16,7 +16,9 @@ final class LoginViewModel: ObservableObject {
     func send(intent: LoginIntent) {
         state = LoginReducer.reduce(state: state, intent: intent)
         if case .loginTapped = intent {
-            login()
+            if state.isFormValid {
+                login()
+            }
         }
     }
     
