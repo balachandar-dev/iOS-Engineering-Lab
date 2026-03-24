@@ -11,10 +11,7 @@ import SwiftUI
 struct iOS_Engineering_LabApp: App {
     var body: some Scene {
         WindowGroup {
-            StepsViewController()
-                .onAppear {
-                    linkedList()
-                }
+            LoginView()
         }
         
     }
