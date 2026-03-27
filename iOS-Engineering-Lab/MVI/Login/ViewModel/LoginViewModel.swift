@@ -12,6 +12,7 @@ final class LoginViewModel: ObservableObject {
     @Published private(set) var state = LoginState()
     
     var onStateChanged: ((LoginState) -> Void)?
+    private let loginSevice = LoginService()
     
     func send(intent: LoginIntent) {
         state = LoginReducer.reduce(state: state, intent: intent)
@@ -25,15 +26,15 @@ final class LoginViewModel: ObservableObject {
     func login() {
         state.isLoading = true
         Task {
-            try await Task.sleep(nanoseconds: 1_000_000_000)
-            DispatchQueue.main.async {
                 self.state.isLoading = false
-                if self.state.email == "user@apple.com" && self.state.password == "pwd" {
-                    self.state.isLoggedIn = true
-                } else {
-                    self.state.errorMessage = "Invalid Credentials"
+                do {
+                    let loginResponse = try await loginSevice.callLoginApi(requestData: LoginRequestModel(email: self.state.email, password: self.state.password))
+                    
+                } catch {
+                    state.errorMessage = error.localizedDescription
                 }
-            }
+                state.isLoading = false
+                state.isLoggedIn = false
         }
     }
 }

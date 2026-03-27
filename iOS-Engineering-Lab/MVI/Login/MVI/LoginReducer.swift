@@ -7,7 +7,7 @@
 
 struct LoginReducer {
     static func reduce(state: LoginState, intent: LoginIntent) -> LoginState {
-        var newState = LoginState()
+        var newState = state
         switch intent {
         case .emailChanegd(let email):
             newState.email = email
