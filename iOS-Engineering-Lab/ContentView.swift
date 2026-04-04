@@ -16,6 +16,10 @@ struct ContentView: View {
             Text("Hello, world!")
         }
         .padding()
+        .onAppear() {
+            let retain = RetainCycleDemo()
+            retain.deinitDemo()
+        }
     }
 }
 
