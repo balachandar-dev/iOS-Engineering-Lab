@@ -7,7 +7,6 @@
 
 class Parent {
     var child: Child?
-    
     init(child: Child?) {
         self.child = child
         print("initialized dad")
@@ -19,13 +18,10 @@ class Parent {
 
 class Child {
     weak var parent: Parent?
-    
     init(parent: Parent?) {
         self.parent = parent
         print("initialized son")
-
     }
-    
     deinit {
         print("Child deinit")
     }
