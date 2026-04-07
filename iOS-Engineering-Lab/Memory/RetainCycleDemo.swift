@@ -38,9 +38,42 @@ class RetainCycleDemo {
         son = Child(parent: nil)
         dad?.child = son
         son?.parent = dad
+        let b = B()
     }
     
     func deinitDemo() {
         dad = nil
+    }
+}
+
+
+class A {
+    var closure: (() -> Void)?
+
+    func setup() {
+        let value = "Local"
+        closure = { [weak self] in
+            print(value)
+            print(self?.value ?? "Nil value")
+        }
+    }
+
+    var value = "global"
+
+    deinit {
+        print("A deinit")
+    }
+}
+
+
+class B {
+    init() {
+        var obj: A? = A()
+        obj?.setup()
+        
+        let c = obj?.closure
+        obj = nil
+        
+        c?()
     }
 }
