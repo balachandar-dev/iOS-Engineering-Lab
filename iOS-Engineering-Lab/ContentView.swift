@@ -17,8 +17,11 @@ struct ContentView: View {
         }
         .padding()
         .onAppear() {
-            let retain = RetainCycleDemo()
-            retain.deinitDemo()
+//            let retain = RetainCycleDemo()
+//            retain.deinitDemo()
+            let twoPointer = TwoPointer()
+            let outpute = twoPointer.getMinDistance([1,2,3,4,5], 4, 3)
+            print(outpute)
         }
     }
 }
